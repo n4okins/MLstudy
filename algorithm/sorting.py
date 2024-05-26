@@ -198,13 +198,13 @@ def quick_sort(array: list, reverse: bool = False):
         pivot = array[pivot_index]
 
         def divide(arr: list):
-            l, r = [], []
+            ll, rr = [], []
             for a in arr:
                 if a > pivot:
-                    l.append(a)
+                    ll.append(a)
                 else:
-                    r.append(a)
-            return l, r
+                    rr.append(a)
+            return ll, rr
 
         left, right = divide(array[:pivot_index] + array[pivot_index + 1 :])
         *_, left = quick_sort(left)
