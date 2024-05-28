@@ -126,6 +126,7 @@ dependencies = [
     "torchprofile>=0.0.4",
     "kaggle<=1.6",
     "torchinfo>=1.8.0",
+    "ipadic>=1.0.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
