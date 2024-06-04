@@ -8,3 +8,8 @@ wheels/
 
 # venv
 .venv
+
+NLP/nlp100/5/sentences/*.png
+!NLP/nlp100/5/sentences/sentence_02.png
+!NLP/nlp100/5/sentences/sentence_39.png
+!NLP/nlp100/5/sentences/sentence_52.png

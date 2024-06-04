@@ -1118,6 +1118,8 @@ pygments==2.18.0
     # via pwntools
     # via rich
     # via sphinx
+pygraphviz==1.13
+    # via mlstudy
 pymc==5.15.0
     # via mlstudy
 pymongo==4.7.2

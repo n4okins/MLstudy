@@ -127,6 +127,7 @@ dependencies = [
     "kaggle<=1.6",
     "torchinfo>=1.8.0",
     "ipadic>=1.0.0",
+    "pygraphviz>=1.13",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
