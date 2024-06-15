@@ -62,7 +62,7 @@ dependencies = [
     "openai>=1.23.1",
     "tiktoken>=0.6.0",
     "mlxtend>=0.23.1",
-    "scikit-learn>=1.4.2",
+    "scikit-learn>=1.5.0",
     "scikit-image>=0.23.1",
     "nltk>=3.8.1",
     "spacy>=3.7.4",
@@ -177,4 +177,4 @@ type = "find-links"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/MLstudy"]
+packages = ["src/MLstudy", "src/zerotsuku/python/zerotsuku"]
