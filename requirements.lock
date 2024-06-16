@@ -17,6 +17,7 @@ absl-py==2.1.0
     # via orbax-checkpoint
     # via tensorboard
     # via tensorflow
+    # via torchcfm
 aiofiles==23.2.1
     # via fiftyone
 aiohttp==3.8.3
@@ -34,6 +35,8 @@ ale-py==0.8.1
     # via shimmy
 alembic==1.13.1
     # via optuna
+anndata==0.10.7
+    # via scanpy
 annotated-types==0.7.0
     # via pydantic
 antlr4-python3-runtime==4.9.3
@@ -53,6 +56,8 @@ argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
     # via argon2-cffi
+array-api-compat==1.7.1
+    # via anndata
 arrow==1.3.0
     # via isoduration
 arviz==0.18.0
@@ -162,6 +167,8 @@ charset-normalizer==2.1.1
 chex==0.1.86
     # via dm-pix
     # via optax
+clean-fid==0.1.35
+    # via torchcfm
 click==8.1.7
     # via click-plugins
     # via cligj
@@ -248,6 +255,7 @@ decorator==4.4.2
     # via ipython
     # via librosa
     # via moviepy
+    # via scprep
 defusedxml==0.7.1
     # via nbconvert
 deprecated==1.2.14
@@ -292,6 +300,7 @@ etuples==0.3.9
     # via minikanren
     # via pytensor
 exceptiongroup==1.2.1
+    # via anndata
     # via anyio
     # via ipython
     # via taskgroup
@@ -411,8 +420,10 @@ h2==4.1.0
 h5netcdf==1.3.0
     # via arviz
 h5py==3.11.0
+    # via anndata
     # via h5netcdf
     # via keras
+    # via scanpy
     # via tensorflow
 hpack==4.0.0
     # via h2
@@ -480,6 +491,7 @@ ipyevents==2.0.2
     # via kaolin
 ipykernel==6.29.4
     # via jupyterlab
+    # via torchdyn
 ipython==8.24.0
     # via ipykernel
     # via ipywidgets
@@ -487,6 +499,7 @@ ipython==8.24.0
 ipywidgets==8.1.2
     # via ipycanvas
     # via ipyevents
+    # via torchdyn
 isoduration==20.11.0
     # via jsonschema
 itsdangerous==2.2.0
@@ -547,7 +560,9 @@ joblib==1.4.2
     # via librosa
     # via mlxtend
     # via nltk
+    # via pynndescent
     # via sacremoses
+    # via scanpy
     # via scikit-learn
 jraph==0.0.6.dev0
     # via mlstudy
@@ -618,14 +633,19 @@ language-data==1.2.0
 lazy-loader==0.4
     # via librosa
     # via scikit-image
+legacy-api-wrap==1.4
+    # via scanpy
 libclang==18.1.1
     # via tensorflow
 librosa==0.10.2.post1
     # via mlstudy
 lightning==2.2.5
     # via mlstudy
+lightning-bolts==0.6.0.post1
+    # via torchcfm
 lightning-utilities==0.11.2
     # via lightning
+    # via lightning-bolts
     # via pytorch-lightning
     # via torchmetrics
 line-bot-sdk==2.4.1
@@ -635,6 +655,7 @@ linear-operator==0.5.1
     # via gpytorch
 llvmlite==0.42.0
     # via numba
+    # via pynndescent
 locket==1.0.0
     # via distributed
     # via partd
@@ -670,7 +691,10 @@ matplotlib==3.9.0
     # via gymnasium
     # via mlstudy
     # via mlxtend
+    # via scanpy
     # via seaborn
+    # via torchcfm
+    # via torchdyn
 matplotlib-inline==0.1.7
     # via ipykernel
     # via ipython
@@ -736,6 +760,9 @@ nagisa==0.2.11
     # via mlstudy
 namex==0.0.8
     # via keras
+natsort==8.4.0
+    # via anndata
+    # via scanpy
 nbclient==0.10.0
     # via nbconvert
 nbconvert==7.16.4
@@ -751,6 +778,7 @@ nest-asyncio==1.6.0
 networkx==3.2.1
     # via dgl
     # via mlstudy
+    # via scanpy
     # via scikit-image
     # via torch
 ninja==1.11.1.1
@@ -763,13 +791,18 @@ nuitka==2.2.3
     # via mlstudy
 numba==0.59.1
     # via librosa
+    # via pynndescent
+    # via scanpy
+    # via umap-learn
 numpy==1.26.3
     # via ale-py
+    # via anndata
     # via arviz
     # via blis
     # via bokeh
     # via bpy
     # via chex
+    # via clean-fid
     # via contourpy
     # via cupy-cuda12x
     # via dask
@@ -814,19 +847,24 @@ numpy==1.26.3
     # via optuna
     # via orbax-checkpoint
     # via pandas
+    # via patsy
+    # via pot
     # via pyarrow
     # via pymc
     # via pyro-ppl
     # via pytensor
     # via pytorch-lightning
+    # via scanpy
     # via scikit-image
     # via scikit-learn
     # via scipy
+    # via scprep
     # via seaborn
     # via shapely
     # via shimmy
     # via soxr
     # via spacy
+    # via statsmodels
     # via tensorboard
     # via tensorflow
     # via tensorstore
@@ -834,10 +872,13 @@ numpy==1.26.3
     # via tifffile
     # via tiledb
     # via torch-geometric
+    # via torchcfm
     # via torchmetrics
     # via torchprofile
+    # via torchsde
     # via torchvision
     # via transformers
+    # via umap-learn
     # via voxel51-eta
     # via xarray
     # via xarray-einstats
@@ -926,6 +967,7 @@ outcome==1.3.0.post0
 overrides==7.7.0
     # via jupyter-server
 packaging==22.0
+    # via anndata
     # via arviz
     # via bokeh
     # via dask
@@ -954,9 +996,12 @@ packaging==22.0
     # via pwntools
     # via pytorch-lightning
     # via ray
+    # via scanpy
     # via scikit-image
+    # via scprep
     # via spacy
     # via sphinx
+    # via statsmodels
     # via tensorflow
     # via thinc
     # via tiledb
@@ -966,6 +1011,7 @@ packaging==22.0
     # via weasel
     # via xarray
 pandas==2.2.2
+    # via anndata
     # via arviz
     # via bokeh
     # via dask
@@ -976,7 +1022,10 @@ pandas==2.2.2
     # via mlstudy
     # via mlxtend
     # via pymc
+    # via scanpy
+    # via scprep
     # via seaborn
+    # via statsmodels
     # via xarray
 pandocfilters==1.5.1
     # via nbconvert
@@ -986,10 +1035,16 @@ parso==0.8.4
     # via jedi
 partd==1.4.2
     # via dask
+pastel==0.2.1
+    # via poethepoet
+patsy==0.5.6
+    # via scanpy
+    # via statsmodels
 pexpect==4.9.0
     # via ipython
 pillow==10.2.0
     # via bokeh
+    # via clean-fid
     # via fiftyone
     # via fvcore
     # via imageio
@@ -1013,12 +1068,16 @@ plotly==5.22.0
     # via mlstudy
 plumbum==1.8.3
     # via rpyc
+poethepoet==0.10.0
+    # via torchdyn
 polars==0.20.29
     # via mlstudy
 pooch==1.8.1
     # via librosa
 portalocker==2.8.2
     # via iopath
+pot==0.9.3
+    # via torchcfm
 pprintpp==0.4.0
     # via fiftyone
 preshed==3.0.9
@@ -1122,6 +1181,9 @@ pymongo==4.7.2
     # via motor
 pynacl==1.5.0
     # via paramiko
+pynndescent==0.5.12
+    # via scanpy
+    # via umap-learn
 pyopengl==3.1.7
     # via mujoco
 pyopenssl==24.1.0
@@ -1171,6 +1233,8 @@ python-slugify==8.0.4
     # via kaggle
 pytorch-lightning==2.2.5
     # via lightning
+    # via lightning-bolts
+    # via torchdyn
 pytz==2024.1
     # via fiftyone
     # via pandas
@@ -1221,6 +1285,7 @@ repath==0.9.0
     # via flet
 requests==2.28.1
     # via bpy
+    # via clean-fid
     # via datasets
     # via dgl
     # via flet
@@ -1277,6 +1342,8 @@ sacremoses==0.1.1
     # via transformers
 safetensors==0.4.3
     # via timm
+scanpy==1.10.1
+    # via torchcfm
 scikit-image==0.23.2
     # via fiftyone
     # via mlstudy
@@ -1288,10 +1355,18 @@ scikit-learn==1.5.0
     # via librosa
     # via mlstudy
     # via mlxtend
+    # via pynndescent
+    # via scanpy
+    # via scprep
     # via torch-geometric
-scipy==1.13.1
+    # via torchcfm
+    # via torchdyn
+    # via umap-learn
+scipy==1.10.1
+    # via anndata
     # via arviz
     # via botorch
+    # via clean-fid
     # via dgl
     # via fiftyone
     # via fiftyone-brain
@@ -1304,16 +1379,29 @@ scipy==1.13.1
     # via linear-operator
     # via mlstudy
     # via mlxtend
+    # via pot
     # via pymc
+    # via pynndescent
     # via pytensor
+    # via scanpy
     # via scikit-image
     # via scikit-learn
+    # via scprep
+    # via statsmodels
     # via torch-cluster
     # via torch-geometric
     # via torch-sparse
+    # via torchcfm
+    # via torchdiffeq
+    # via torchdyn
+    # via torchsde
+    # via umap-learn
     # via xarray-einstats
+scprep==1.1.0
+    # via torchcfm
 seaborn==0.13.2
     # via mlstudy
+    # via scanpy
 selenium==4.17.1
     # via mlstudy
 send2trash==1.8.3
@@ -1322,6 +1410,8 @@ sentencepiece==0.2.0
     # via mlstudy
 service-identity==24.1.0
     # via twisted
+session-info==1.0.0
+    # via scanpy
 setuptools==70.0.0
     # via arviz
     # via autobahn
@@ -1351,6 +1441,7 @@ six==1.16.0
     # via google-pasta
     # via kaggle
     # via nagisa
+    # via patsy
     # via pwntools
     # via python-dateutil
     # via repath
@@ -1425,6 +1516,10 @@ starlette==0.37.2
     # via fastapi
     # via fiftyone
     # via sse-starlette
+statsmodels==0.14.2
+    # via scanpy
+stdlib-list==0.10.0
+    # via session-info
 strawberry-graphql==0.138.1
     # via fiftyone
 sudachidict-core==20240409
@@ -1494,6 +1589,8 @@ tomli==2.0.1
     # via jupyterlab
     # via maturin
     # via sphinx
+tomlkit==0.12.5
+    # via poethepoet
 toolz==0.12.1
     # via chex
     # via dask
@@ -1503,6 +1600,7 @@ toolz==0.12.1
     # via partd
 torch==2.2.2+cu121
     # via botorch
+    # via clean-fid
     # via gymnasium
     # via kornia
     # via lightning
@@ -1512,9 +1610,14 @@ torch==2.2.2+cu121
     # via pytorch-lightning
     # via timm
     # via torchaudio
+    # via torchcde
+    # via torchcfm
     # via torchdata
+    # via torchdiffeq
+    # via torchdyn
     # via torchmetrics
     # via torchprofile
+    # via torchsde
     # via torchvision
     # via transformers
 torch-cluster==1.6.3+pt22cu121
@@ -1529,8 +1632,17 @@ torch-spline-conv==1.2.2+pt22cu121
     # via mlstudy
 torchaudio==2.2.2+cu121
     # via mlstudy
+torchcde==0.2.5
+    # via torchdyn
+torchcfm==1.0.5
+    # via mlstudy
 torchdata==0.7.1
     # via dgl
+torchdiffeq==0.2.4
+    # via torchcde
+    # via torchcfm
+torchdyn==1.0.6
+    # via torchcfm
 torchinfo==1.8.0
     # via mlstudy
 torchmetrics==1.0.3
@@ -1538,9 +1650,16 @@ torchmetrics==1.0.3
     # via pytorch-lightning
 torchprofile==0.0.4
     # via mlstudy
+torchsde==0.2.6
+    # via torchcde
+    # via torchdyn
 torchvision==0.17.2+cu121
+    # via clean-fid
+    # via lightning-bolts
     # via mlstudy
     # via timm
+    # via torchcfm
+    # via torchdyn
     # via torchprofile
 tornado==6.4
     # via bokeh
@@ -1552,6 +1671,7 @@ tornado==6.4
     # via kaolin
     # via terminado
 tqdm==4.64.1
+    # via clean-fid
     # via datasets
     # via dgl
     # via fvcore
@@ -1570,9 +1690,11 @@ tqdm==4.64.1
     # via pyro-ppl
     # via pytorch-lightning
     # via sacremoses
+    # via scanpy
     # via spacy
     # via torch-geometric
     # via transformers
+    # via umap-learn
 traitlets==5.14.3
     # via comm
     # via ipykernel
@@ -1587,6 +1709,8 @@ traitlets==5.14.3
     # via nbclient
     # via nbconvert
     # via nbformat
+trampoline==0.1.2
+    # via torchsde
 transformers==4.18.0
     # via mlstudy
 trio==0.25.1
@@ -1652,6 +1776,8 @@ tzdata==2024.1
     # via pandas
 tzlocal==5.2
     # via voxel51-eta
+umap-learn==0.5.6
+    # via scanpy
 unicorn==2.0.1.post1
     # via pwntools
 unidic-lite==1.0.8

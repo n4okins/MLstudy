@@ -15,3 +15,5 @@ NLP/nlp100/5/sentences/*.png
 !NLP/nlp100/5/sentences/sentence_52.png
 
 **/dataset/
+
+**/*.pt

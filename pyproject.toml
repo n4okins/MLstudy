@@ -15,7 +15,7 @@ dependencies = [
     "pypdf>=4.2.0",
     "matplotlib>=3.8.4",
     "pillow>=10.2.0",
-    "scipy>=1.13.0",
+    "scipy==1.10.1",
     "selenium==4.17.1",
     "beautifulsoup4>=4.12.3",
     "typing-extensions>=4.8.0",
@@ -128,6 +128,7 @@ dependencies = [
     "torchinfo>=1.8.0",
     "ipadic>=1.0.0",
     "pygraphviz>=1.13",
+    "torchcfm>=1.0.5",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -177,4 +178,4 @@ type = "find-links"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/MLstudy", "src/zerotsuku/python/zerotsuku"]
+packages = ["src/mlutils"]
