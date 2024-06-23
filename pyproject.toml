@@ -129,6 +129,7 @@ dependencies = [
     "ipadic>=1.0.0",
     "pygraphviz>=1.13",
     "torchcfm>=1.0.5",
+    "gdown>=5.2.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

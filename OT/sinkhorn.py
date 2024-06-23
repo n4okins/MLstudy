@@ -14,27 +14,25 @@ japanize_matplotlib()
 
 
 # dog, cat, lion, bird
-n, m = 300, 300
-a = torch.rand(n)
+# n, m = 300, 300
+# a = torch.rand(n)
 # b = torch.sin(torch.linspace(0, torch.pi, m))
-b = torch.rand(m)
-c = torch.randint(0, 100, (n, m)) / 10
-c = c * (1 - torch.eye(n, m))
+# c = torch.randint(0, 100, (n, m)) / 10
+# c = c * (1 - torch.eye(n, m))
 
-# a = torch.tensor([0.2, 0.5, 0.2, 0.1])
-# b = torch.tensor([0.3, 0.3, 0.4, 0.0])
-# n, m = len(a), len(b)
-# c = torch.tensor(
-#     [
-#         [0, 2, 2, 2],
-#         [2, 0, 1, 2],
-#         [2, 1, 0, 2],
-#         [2, 2, 2, 0],
-#     ]
-# )
+a = torch.tensor([0.2, 0.5, 0.2, 0.1])
+b = torch.tensor([0.3, 0.3, 0.4, 0.0])
+n, m = len(a), len(b)
+c = torch.tensor(
+    [
+        [0, 2, 2, 2],
+        [2, 0, 1, 2],
+        [2, 1, 0, 2],
+        [2, 2, 2, 0],
+    ]
+)
 
 ylim = (min(a.min(), b.min()), max(a.max(), b.max()) * 1.05)
-# %%
 
 # %%
 fig, ax = plt.subplots(1, 2, figsize=(15, 5))

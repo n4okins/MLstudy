@@ -17,3 +17,4 @@ NLP/nlp100/5/sentences/*.png
 **/dataset/
 
 **/*.pt
+**/*.bin
