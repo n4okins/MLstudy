@@ -130,6 +130,8 @@ dependencies = [
     "pygraphviz>=1.13",
     "torchcfm>=1.0.5",
     "gdown>=5.2.0",
+    "fugashi>=1.3.2",
+    "utils @ git+https://github.com/n4okins/utils.git",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

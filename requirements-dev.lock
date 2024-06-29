@@ -370,6 +370,8 @@ fsspec==2023.4.0
     # via torch-geometric
 ftfy==6.2.0
     # via fiftyone
+fugashi==1.3.2
+    # via mlstudy
 future==1.0.0
     # via line-bot-sdk
     # via voxel51-eta
@@ -1814,6 +1816,8 @@ urllib3==1.26.13
     # via voxel51-eta
 usd-core==23.5
     # via kaolin
+utils @ git+https://github.com/n4okins/utils.git@f069685a245a326902225479770d7846f3121dc0
+    # via mlstudy
 uvicorn==0.29.0
     # via mlstudy
 voxel51-eta==0.12.6

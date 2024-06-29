@@ -155,15 +155,17 @@ def make_vectors(df, length = 1000):
   assert all_vectors.shape == (length, 300)
   return all_vectors
 
+if not Path("7/x_train.npy").exists():
+  with open('7/x_train.npy', 'wb') as f:
+    np.save(f, make_vectors(train_df))
 
-with open('7/x_train.npy', 'wb') as f:
-  np.save(f, make_vectors(train_df))
+if not Path("7/x_valid.npy").exists():
+  with open('7/x_valid.npy', 'wb') as f:
+    np.save(f, make_vectors(valid_df))
 
-with open('7/x_valid.npy', 'wb') as f:
-  np.save(f, make_vectors(valid_df))
-
-with open('7/x_test.npy', 'wb') as f:
-  np.save(f, make_vectors(test_df))
+if not Path("7/x_test.npy").exists():
+  with open('7/x_test.npy', 'wb') as f:
+    np.save(f, make_vectors(test_df))
 
 
 
@@ -234,21 +236,47 @@ print(f"x1 Gradient: {net.weight.grad}")
 See https://nlp100.github.io/en/ch08.html#72-calculating-loss-and-gradients
 """
 
-net = nn.Sequential(
-  nn.Linear(300, 256), 
-  nn.ReLU(),
-  nn.Linear(256, 64),
-  nn.ReLU(),
-  nn.Linear(64, 4)
-) # Prepare a linear layer without *bias*. The shape is (dim, the number of labels) (See https://pytorch.org/docs/stable/generated/torch.nn.Linear.html#torch.nn.Linear)
+net = nn.Linear(300, 4, bias=False)
+
+# net = nn.Sequential(
+#     nn.Linear(300, 512),
+#     nn.ReLU(),
+#     nn.Linear(512, 256),
+#     nn.ReLU(),
+#     nn.Linear(256, 64),
+#     nn.ReLU(),
+#     nn.Linear(64, 4),
+# )
+
+# Prepare a linear layer without *bias*. The shape is (dim, the number of labels) (See https://pytorch.org/docs/stable/generated/torch.nn.Linear.html#torch.nn.Linear)
 loss_function = nn.CrossEntropyLoss() # Prepare CrossEntropyLoss (See https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss)
 optimizer = torch.optim.SGD(net.parameters(), lr=0.01) # Prepare optimizer (See https://pytorch.org/docs/stable/generated/torch.optim.SGD.html#torch.optim.SGD)
 
 print(x_train.shape, y_train.shape)
-x_train, y_train = x_train[:1000], y_train[:1000]
 # %%
+# x_train, y_train = x_train[:1000], y_train[:1000]
+
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+with open("7/x_test.npy", "rb") as f:
+  # Load numpy and convert it to tensor
+  x_test = np.load(f)
+  x_test = torch.tensor(x_test, dtype=torch.float32)
+
+with open("7/y_test.txt") as f:
+  y_test = [int(line) for line in f.readlines()] # Load data and convert str to int
+  y_test = torch.tensor(y_test, dtype=torch.long)
+  # Load numpy and convert it to tensor
+print(x_test.shape, y_test.shape)
+
+x_test, y_test = x_test[:100], y_test[:100]
+
+x_train, y_train = x_train.to("cuda"), y_train.to("cuda")
+x_test, y_test = x_test.to("cuda"), y_test.to("cuda")
+net.to("cuda")
 losses = []
-for epoch in tqdm(range(100000)):
+accuracies = []
+for epoch in tqdm(range(10000)):
     optimizer.zero_grad() # Initialize the gradient
     y_pred = net(x_train)
     # Calculate Matrix product of x_train and net (Hint: net.forward(x))→ Calculate its softmax
@@ -257,9 +285,29 @@ for epoch in tqdm(range(100000)):
     optimizer.step()
     # Calculate backword here (See example in https://pytorch.org/docs/stable/generated/torch.optim.SGD.html#torch.optim.SGD)
     # Run optimizer step here (See example in https://pytorch.org/docs/stable/generated/torch.optim.SGD.html#torch.optim.SGD)
-    losses.append(loss)
+    losses.append(loss.item())
+    net.eval()
+    with torch.inference_mode():
+      y_max_test, y_pred_test = torch.max(net(x_test), dim=1)
+      acc = accuracy_score(y_test.cpu(), y_pred_test.cpu())
+    accuracies.append(acc)
+    net.train()
 # Save the weights
 print(losses[0], losses[-1])
+
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.plot(losses, label="loss")
+ax1.set_ylim(0, 2)
+ax1.set_ylabel("loss")
+
+ax2 = ax1.twinx()
+ax2.plot(accuracies, label="accuracy", color="orange")
+ax2.set_ylim(0, 1)
+ax2.set_ylabel("accuracy")
+
+plt.show()
+
 torch.save(net.state_dict(), "7/model.pt")
 # %%
 """## 74. Measuring accuracy
@@ -294,4 +342,74 @@ print(f"Accuracy on training data: {accuracy_score(y_train, y_pred_train):.2f}")
 
 y_max_test, y_pred_test = torch.max(net(x_test),dim=1)
 print(f"Accuraty on test data: {accuracy_score(y_test, y_pred_test):.2f}")
+# %%
+
+"""
+# Neural Network
+
+This tutorial references NLP100knock (
+[English page](https://nlp100.github.io/en/ch08.html) / [Japanese page](https://nlp100.github.io/ja/ch08.html) / [Chinese page](https://nlp100.github.io/zh/ch08.html)).
+
+## 🚨 Before you start running
+
+- Please use codes from previsou(70-74) lessons.
+"""
+
+# 75. Plotting loss and accuracy
+"""Modify the code from the problem 73 so that the loss and accuracy of both the training and the evaluation data are plotted on a graph after each epoch. Use this graph to monitor the progress of learning
+
+Paste your 73. code and modify it here.
+Please plot the graph of
+  - loss
+  -  accuracy
+for both training and evaluation data.
+"""
+
+# %%
+# 76. Checkpoints
+"""Modify the code from the problem 75 to write out checkpoints to a file after each epoch. Checkpoints should include values of the parameters such as weight matrices and the internal states of the optimization algorithm.
+
+Paste your 75. code and modify it here.
+Add the code to write out checkpoints to a file after each epoch.
+"""
+
+# %%
+# 77. Mini-batches
+"""
+Modify the code from the problem 76 to calculate the loss/gradient and update the values of matrix W
+ for every B
+ samples (mini-batch). Compare the time required for one learning epoch by changing the value of B
+ to 1,2,4,8,…
+.
+Paste your 76. code and modify it here.
+Make the code possible to get mini-batches data.
+Pytorch APIs basically allows batch dimensions in the first dimention by default.(See the example https://pytorch.org/docs/stable/generated/torch.bmm.html#torch-bmm)
+You can set the batch size (first dimention) as variable B.
+"""
+
+# %%
+# 78 Training on a GPU
+"""Modify the code from the problem 77 so that it runs on a GPU.
+
+Paste your 77. code and modify it here.
+Use GPU instances in Google Colab.
+- Runtime -> Change runtime type -> Hardware accelerator ->T4 GPU
+
+Check GPU avaiability:
+>>> import torch
+>>> torch.cuda.is_available()
+
+Example code to change model to GPU: https://pytorch.org/tutorials/recipes/recipes/save_load_across_devices.html#save-on-gpu-load-on-gpu
+"""
+
+# %%
+# 79. Multilayer Neural Networks
+"""
+Modify the code from the problem 78 to create a high-performing classifier by changing the architecture of the neural network. Try introducing bias terms and multiple layers.
+
+Paste your 78. code and modify it here.
+
+Example for Linear with bias: https://pytorch.org/docs/stable/generated/torch.nn.Linear.html
+Example for Multiple Layers: https://pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html#define-the-class
+"""
 # %%
